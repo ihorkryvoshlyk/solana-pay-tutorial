@@ -13,7 +13,7 @@ import {
   findTransactionSignature,
   FindTransactionSignatureError,
 } from '@solana/pay'
-import { decode as decodeBase64, encode as encodeBase64 } from 'js-base64'
+import {encrypt, decrypt} from "../lib/openssl_crypto";
 
 export default function Checkout() {
   const router = useRouter()
@@ -27,7 +27,8 @@ export default function Checkout() {
   const { token } = router.query
   const params = useMemo(() => {
     if (token) {
-      return JSON.parse(decodeBase64(token as string))
+      const tokenString = token.trim().replaceAll(" ", "+")
+      return JSON.parse(decrypt(tokenString as string))
     } else {
       return router.query
     }
@@ -78,7 +79,7 @@ export default function Checkout() {
     let response
 
     if (token) {
-      const tokenString = encodeBase64(
+      const tokenString = encrypt(
         JSON.stringify({
           ...params,
           reference,

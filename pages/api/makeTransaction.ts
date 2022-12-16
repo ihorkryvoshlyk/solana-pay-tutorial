@@ -11,7 +11,7 @@ import {
   Transaction,
 } from '@solana/web3.js'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { decode as decodeBase64 } from 'js-base64'
+import {decrypt} from "../../lib/openssl_crypto";
 import { shopAddress, usdcAddress } from '../../lib/addresses'
 import calculatePrice from '../../lib/calculatePrice'
 
@@ -36,7 +36,8 @@ export default async function handler(
     const { token } = req.query
     let params
     if (token) {
-      params = JSON.parse(decodeBase64(req.query.token.toString()))
+      const tokenString = token.trim().replaceAll(" ", "+")
+      params = JSON.parse(decrypt(tokenString as string))
     } else {
       params = req.query
     }

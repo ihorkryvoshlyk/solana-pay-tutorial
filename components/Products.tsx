@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, FormEvent, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { Keypair } from '@solana/web3.js'
-import { encode as encodeBase64 } from 'js-base64'
+import {encrypt} from "../lib/openssl_crypto";
 import { products } from '../lib/products'
 import NumberInput from './NumberInput'
 
@@ -48,7 +48,7 @@ export default function Products({ submitTarget, enabled }: Props) {
 
   const handleSubmitWithEncryptedURL = (e: FormEvent) => {
     e.preventDefault()
-    const encodedSearchParams = encodeBase64(JSON.stringify(productAmounts))
+    const encodedSearchParams = encrypt(decodeURIComponent(JSON.stringify(productAmounts)))
     router.push(`/checkout?token=${encodedSearchParams}`)
   }
 

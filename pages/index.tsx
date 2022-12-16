@@ -3,10 +3,11 @@ import SiteHeading from '../components/SiteHeading'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import CouponBook from '../components/CouponBook'
+import {encrypt, decrypt} from "../lib/openssl_crypto";
 
 export default function HomePage() {
   const { publicKey } = useWallet()
-
+  
   return (
     <div className="m-auto flex max-w-4xl flex-col items-stretch gap-8 pt-24">
       <SiteHeading>Solana Checkout</SiteHeading>
