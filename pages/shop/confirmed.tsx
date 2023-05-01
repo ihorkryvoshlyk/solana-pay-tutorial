@@ -6,7 +6,7 @@ import PageHeading from '../../components/PageHeading';
 export default function ConfirmedPage() {
   return (
     <div className='flex flex-col gap-8 items-center'>
-      <BackLink href='/shop'>Next order</BackLink>
+      <BackLink href='/'>Home</BackLink>
 
       <PageHeading>Thank you, enjoy your cookies!</PageHeading>
 

@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect, FormEvent, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { Keypair } from '@solana/web3.js'
 import {encrypt} from "../lib/openssl_crypto";
 import { products } from '../lib/products'
 import NumberInput from './NumberInput'

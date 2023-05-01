@@ -36,12 +36,13 @@ export default async function handler(
     const { token } = req.query
     let params
     if (token) {
-      const tokenString = token.trim().replaceAll(" ", "+")
+      const tokenString = String(token).trim().replaceAll(" ", "+")
       params = JSON.parse(decrypt(tokenString as string))
     } else {
       params = req.query
     }
     // We pass the selected items in the query, calculate the expected cost
+
 
     const checkoutAmount = calculatePrice(params)
     if (checkoutAmount.toNumber() === 0) {
